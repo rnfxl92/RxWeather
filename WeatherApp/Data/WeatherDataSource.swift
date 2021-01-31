@@ -26,7 +26,7 @@ class WeatherDataSource {
     static let weatherInfoDidUpdate = Notification.Name(rawValue: "weatherInfoDidUpdate")
     
     var summary: CurrentWeather?
-    var forcastList = [ForecastData]()
+    var forcastList = [WeatherData]()
     
     let apiQueue = DispatchQueue(label: "ApiQueue", attributes: .concurrent)
     let group = DispatchGroup()
@@ -53,10 +53,10 @@ class WeatherDataSource {
                     self.forcastList = data.list.map {
                         let dt = Date(timeIntervalSince1970: TimeInterval($0.dt))
                         let icon = $0.weather.first?.icon ?? ""
-                        let weather = $0.weather.first?.description ?? "알 수 없음"
+                        let description = $0.weather.first?.description ?? "알 수 없음"
                         let temperature = $0.main.temp
                         
-                        return ForecastData(date: dt, icon: icon, weather: weather, temperature: temperature)
+                        return WeatherData(date: dt, icon: icon, description: description, temperature: temperature, maxTemperature: nil, minTemperature: nil)
                     }
                 default:
                     self.forcastList = []

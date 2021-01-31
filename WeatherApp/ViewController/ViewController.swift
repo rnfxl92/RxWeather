@@ -87,10 +87,10 @@ extension ViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: ForecastTableViewCell.identifier, for: indexPath) as! ForecastTableViewCell
         
         let target = WeatherDataSource.shared.forcastList[indexPath.row]
-        cell.dateLabel.text = target.date.dateString
-        cell.timeLabel.text = target.date.timeString
+        cell.dateLabel.text = target.date?.dateString
+        cell.timeLabel.text = target.date?.timeString
         cell.weatherImageView.image = ImageProvider.shard.weatherImage(named: target.icon)
-        cell.statusLabel.text = target.weather.description
+        cell.statusLabel.text = target.description
         cell.temperatureLabel.text = "\(target.temperature.temperatureString)"
         
         return cell
