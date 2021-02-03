@@ -29,10 +29,25 @@ class SummaryTableViewCell: UITableViewCell {
         currentTemperatureLabel.textColor = statusLabel.textColor
     }
 
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
+    func configure(from data: WeatherDataType, tempFormatter: NumberFormatter) {
+        if #available(iOS 13.0, *) {
+            weatherImageView.image = UIImage.from(name: data.icon)
+        } else {
 
-        // Configure the view for the selected state
+        }
+       statusLabel.text = data.description
+       
+       let max = data.maxTemperature ?? 0.0
+       let min = data.minTemperature ?? 0.0
+       
+       let maxStr = tempFormatter.string(for: max) ?? "-"
+       let minStr = tempFormatter.string(for: min) ?? "-"
+       
+       minMaxLabel.text = "최대 \(maxStr)º 최소 \(minStr)º"
+             
+       let currentStr = tempFormatter.string(for: data.temperature) ?? "-"
+       
+       currentTemperatureLabel.text = "\(currentStr)º"
     }
 
 }

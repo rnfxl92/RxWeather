@@ -31,10 +31,22 @@ class ForecastTableViewCell: UITableViewCell {
         temperatureLabel.textColor = statusLabel.textColor
     }
 
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+    func configure(from data: WeatherDataType, dateFormatter: DateFormatter, tempFormatter: NumberFormatter) {
+       dateFormatter.dateFormat = "M.d (E)"
+       dateLabel.text = dateFormatter.string(for: data.date)
+       
+       dateFormatter.dateFormat = "HH:00"
+       timeLabel.text = dateFormatter.string(for: data.date)
+       
+        if #available(iOS 13.0, *) {
+            weatherImageView.image = UIImage.from(name: data.icon)
+        } else {
+            
+        }
+       
+       statusLabel.text = data.description
+       
+       let tempStr = tempFormatter.string(for: data.temperature) ?? "-"
+       temperatureLabel.text = "\(tempStr)º"
     }
-
 }
