@@ -10,6 +10,7 @@ import CoreLocation
 
 class WeatherDataSource {
     static let shared = WeatherDataSource()
+    
     private init() {
         
         NotificationCenter.default.addObserver(forName: LocationManager.currentLocationDidUpdate, object: nil, queue: .main) { (noti) in
